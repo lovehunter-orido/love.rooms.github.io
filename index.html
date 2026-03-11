@@ -1,44 +1,269 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Tube - Free Adult Videos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hot Adult Videos & Live Sex - 18+ Only</title>
+  <meta name="description" content="Watch thousands of free porn videos, live cams & sex chat. HD quality, daily updates – join now!">
+  
   <style>
-    body { margin:0; font-family:Arial, sans-serif; background:#000; color:#fff; }
-    header { background:#111; padding:10px; text-align:center; }
-    .search { width:60%; padding:10px; font-size:16px; }
-    .container { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:15px; padding:20px; max-width:1400px; margin:auto; }
-    .video-thumb { background:#222; border-radius:8px; overflow:hidden; }
-    .video-thumb img { width:100%; height:180px; object-fit:cover; }
-    .info { padding:10px; }
-    .title { font-size:15px; margin:0 0 5px; }
-    .views { font-size:13px; color:#aaa; }
-    footer { background:#111; text-align:center; padding:20px; margin-top:30px; }
+    :root {
+      --neon-pink: #ff0066;
+      --neon-purple: #9d00ff;
+      --dark-bg: #0a0015;
+      --card-bg: rgba(20,0,40,0.85);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--dark-bg);
+      color: #f0e0ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .age-gate {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.97);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+    }
+    .age-modal {
+      background: var(--card-bg);
+      border: 3px solid var(--neon-pink);
+      border-radius: 20px;
+      padding: 60px 40px;
+      max-width: 560px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 80px rgba(255,0,102,0.6);
+      animation: glow 4s infinite alternate;
+    }
+    @keyframes glow { 0% { box-shadow: 0 0 60px rgba(255,0,102,0.4); } 100% { box-shadow: 0 0 100px rgba(255,0,102,0.8); } }
+    .age-title { font-size: 3.8rem; color: var(--neon-pink); margin-bottom: 30px; text-shadow: 0 0 30px var(--neon-pink); }
+    .age-text { font-size: 1.4rem; margin-bottom: 40px; line-height: 1.7; }
+    .age-btn {
+      padding: 18px 60px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      margin: 15px;
+      transition: all 0.4s ease;
+    }
+    .yes-btn {
+      background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+      color: white;
+      box-shadow: 0 0 40px rgba(255,0,102,0.7);
+    }
+    .yes-btn:hover { transform: scale(1.12) translateY(-6px); box-shadow: 0 0 70px rgba(255,0,102,1); }
+    .no-btn { background: #222; color: #aaa; }
+    .no-btn:hover { background: #333; }
+
+    header {
+      background: rgba(0,0,0,0.8);
+      padding: 25px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,0,102,0.3);
+    }
+    .logo {
+      font-size: 3.5rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(255,0,102,0.7);
+    }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 30px;
+      background: linear-gradient(rgba(10,0,21,0.9), rgba(32,0,64,0.9)), url('https://images.unsplash.com/photo-1516321310766-66f6170c6730?w=1600&q=80') center/cover fixed;
+    }
+    .hero-content { max-width: 900px; }
+    h1 {
+      font-size: 5rem;
+      margin-bottom: 30px;
+      background: linear-gradient(45deg, #ff0066, #9d00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 50px rgba(255,0,102,0.8);
+    }
+    .subtitle { font-size: 2rem; margin-bottom: 60px; color: #d0b0ff; }
+    .live-stats {
+      font-size: 2rem;
+      margin: 40px 0;
+      color: var(--neon-pink);
+      font-weight: bold;
+      text-shadow: 0 0 30px var(--neon-pink);
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 22px 80px;
+      font-size: 1.8rem;
+      background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+      color: white;
+      text-decoration: none;
+      border-radius: 70px;
+      box-shadow: 0 0 60px rgba(255,0,102,0.9);
+      transition: all 0.5s;
+    }
+    .cta-btn:hover {
+      transform: translateY(-10px) scale(1.1);
+      box-shadow: 0 0 100px rgba(255,0,102,1);
+    }
+    .videos-grid {
+      padding: 80px 30px;
+      background: rgba(10,0,21,0.8);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .video-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,0,102,0.3);
+      transition: all 0.4s;
+      cursor: pointer;
+    }
+    .video-card:hover {
+      transform: translateY(-12px);
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 40px rgba(255,0,102,0.6);
+    }
+    .thumbnail {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #000;
+    }
+    .video-info {
+      padding: 15px;
+    }
+    .video-title {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: #ff99cc;
+    }
+    .video-meta {
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+    footer {
+      text-align: center;
+      padding: 60px 30px;
+      background: rgba(0,0,0,0.9);
+      border-top: 1px solid rgba(255,0,102,0.3);
+      font-size: 1.1rem;
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <input type="text" class="search" placeholder="Search videos...">
-</header>
-
-<div class="container">
-  <!-- Repeat this block for each video -->
-  <div class="video-thumb">
-    <img src="https://via.placeholder.com/320x180/111/fff?text=Video+Thumb" alt="thumb">
-    <div class="info">
-      <p class="title">Hot Desi Girl XXX Video</p>
-      <p class="views">1.2M views • 2 days ago</p>
+<!-- Age Gate -->
+<div class="age-gate" id="ageGate">
+  <div class="age-modal">
+    <div class="age-title">18+ ONLY</div>
+    <div class="age-text">
+      This website contains explicit adult content and is strictly for users 18 years and older.<br>
+      Are you 18 or older?
     </div>
+    <button class="age-btn yes-btn" onclick="enterSite()">Yes, I am 18+</button>
+    <button class="age-btn no-btn" onclick="leaveSite()">No</button>
   </div>
-  
-  <!-- আরও ১০-২০টা এমন block যোগ করো -->
 </div>
 
+<!-- Header -->
+<header>
+  <div class="logo">Hot Adult Hub</div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Watch Free HD Porn Videos</h1>
+    <p class="subtitle">Thousands of XXX videos, live cams & sex chat – updated daily</p>
+    
+    <div class="live-stats" id="liveStats">14,392 users watching now 🔥</div>
+    
+    <!-- Adsterra Direct Link -->
+    <a href="https://cutt.ly/vtTSIYaH" class="cta-btn" target="_blank">Start Watching Now</a>
+  </div>
+</section>
+
+<!-- Video Grid (Teaser Thumbnails) -->
+<section class="videos-grid">
+  <h2 style="text-align:center; font-size:3rem; color:var(--neon-pink); margin-bottom:60px;">Popular Videos</h2>
+  <div class="grid">
+    <!-- Fake thumbnails – replace src with your own or keep placeholders -->
+    <div class="video-card">
+      <img class="thumbnail" src="https://via.placeholder.com/320x180/000/fff?text=Hot+Lesbian+Action" alt="Video 1">
+      <div class="video-info">
+        <div class="video-title">Steamy Lesbian Passion</div>
+        <div class="video-meta">12 min • 98% • 1.2M views</div>
+      </div>
+    </div>
+    <div class="video-card">
+      <img class="thumbnail" src="https://via.placeholder.com/320x180/000/fff?text=Big+Tit+Milf" alt="Video 2">
+      <div class="video-info">
+        <div class="video-title">Busty MILF Gets Wild</div>
+        <div class="video-meta">18 min • 95% • 890K views</div>
+      </div>
+    </div>
+    <div class="video-card">
+      <img class="thumbnail" src="https://via.placeholder.com/320x180/000/fff?text=Amateur+Couple" alt="Video 3">
+      <div class="video-info">
+        <div class="video-title">Real Amateur Couple Fuck</div>
+        <div class="video-meta">15 min • 97% • 650K views</div>
+      </div>
+    </div>
+    <!-- আরও ৩-৪টা কার্ড যোগ করতে পারো -->
+  </div>
+</section>
+
 <footer>
-  © 2026 Your Tube - All Rights Reserved
+  © 2026 Hot Adult Hub • 18+ Only • All Rights Reserved
 </footer>
+
+<!-- Adsterra Social Bar -->
+<script src="https://amplifyouter.com/f6/7c/77/f67c77f346e8f6b4162b82b10ebc371b.js"></script>
+
+<!-- Adsterra Popunder -->
+<script src="https://amplifyouter.com/2a/76/fd/2a76fd21e1ef68713ae21996941cf005.js"></script>
+
+<script>
+  // Age Gate
+  function enterSite() {
+    document.getElementById('ageGate').style.display = 'none';
+  }
+  function leaveSite() {
+    window.location.href = 'https://www.google.com';
+  }
+
+  // Fake Live Stats Counter
+  let viewers = 14392;
+  const stats = document.getElementById('liveStats');
+  setInterval(() => {
+    viewers += Math.floor(Math.random() * 30) + 10;
+    stats.textContent = viewers.toLocaleString() + " users watching now 🔥";
+  }, 7000);
+</script>
 
 </body>
 </html>
